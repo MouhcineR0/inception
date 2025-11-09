@@ -1,3 +1,5 @@
+#!/bin/bash
+# service mariadb start
+exec mysqld_safe
 
-service mariadb start
 echo "rachid mouhcine"

@@ -1,0 +1,17 @@
+services:
+  databases:
+    build : srcs/requirements/mariadb
+    container_name: databasecontainer
+    restart : always
+    ports:
+      - "3330:3354"
+    # volumes:
+      # where to store data
+  wordpress:
+    build: srcs/requirements/wordpress
+    container_name: wordpresscontainer
+    restart : always
+    ports:
+      - "3331:3355"
+    # volumes:
+      # where to store data
