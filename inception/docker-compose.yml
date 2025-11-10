@@ -1,17 +1,44 @@
+networks:
+  test:
+    name: test
+
 services:
   databases:
+    networks:
+      - test
     build : srcs/requirements/mariadb
-    container_name: databasecontainer
-    restart : always
-    ports:
-      - "3330:3354"
+    # container_name: databasecontainer
+    restart : always # default port mariadb is 3306
     # volumes:
       # where to store data
   wordpress:
     build: srcs/requirements/wordpress
-    container_name: wordpresscontainer
+    # container_name: wordpresscontainer
+    # depends_on:
+    #   databases:
+    #     condition: service_healthy
+    restart : always
+    volumes:
+      - wordpressdata:/var/www/html
+    networks:
+      - test
+    environment:
+      WORDPRESS_DB_HOST: databases:3306
+      WORDPRESS_DB_USER: rachid
+      WORDPRESS_DB_PASSWORD: rachid
+      WORDPRESS_DB_NAME: wordpress
+  nginx:
+    depends_on:
+      - wordpress
+    build: srcs/requirements/nginx
+    # container_name: nginxcontainer
     restart : always
     ports:
-      - "3331:3355"
-    # volumes:
-      # where to store data
+      - "8080:80"
+    volumes:
+      - wordpressdata:/var/www/html
+    networks:
+      - test
+
+volumes:
+  wordpressdata:
