@@ -5,7 +5,7 @@ WORKDIR /app/nginx
 RUN apt update
 RUN apt install -y nginx
 
-COPY tools/default.conf /etc/nginx/conf.d
+COPY tools/default.conf /etc/nginx/nginx.conf
 
 RUN apt install curl -y
 

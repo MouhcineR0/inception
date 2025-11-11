@@ -1,11 +1,11 @@
 networks:
-  test:
-    name: test
+  inception:
+    driver: bridge
 
 services:
   databases:
     networks:
-      - test
+      - inception
     build : srcs/requirements/mariadb
     # container_name: databasecontainer
     restart : always # default port mariadb is 3306
@@ -21,12 +21,16 @@ services:
     volumes:
       - wordpressdata:/var/www/html
     networks:
-      - test
+      - inception
+    depends_on:
+      - databases
     environment:
-      WORDPRESS_DB_HOST: databases:3306
+      WORDPRESS_DB_HOST: databases
       WORDPRESS_DB_USER: rachid
       WORDPRESS_DB_PASSWORD: rachid
       WORDPRESS_DB_NAME: wordpress
+    # expose:
+    #   - "9000"
   nginx:
     depends_on:
       - wordpress
@@ -38,7 +42,7 @@ services:
     volumes:
       - wordpressdata:/var/www/html
     networks:
-      - test
+      - inception
 
 volumes:
   wordpressdata:
