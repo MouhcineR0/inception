@@ -9,8 +9,6 @@ services:
     build : srcs/requirements/mariadb
     # container_name: databasecontainer
     restart : always # default port mariadb is 3306
-    # volumes:
-      # where to store data
   wordpress:
     build: srcs/requirements/wordpress
     # container_name: wordpresscontainer

@@ -1,24 +1,24 @@
 #!/bin/bash
 
-echo "Initializing MariaDB..."
+echo "rachid mouhcine"
 
-# Start MariaDB temporarily in the background
-mysqld_safe --datadir=/var/lib/mysql &
+service mariadb start
 
-# Wait for MariaDB to be ready
+# while ! mariadb ping --silent; do
 sleep 5
+# done
 
-# Initialize database and user
-mariadb -u root <<EOF
+mariadb << limiter
 CREATE DATABASE IF NOT EXISTS wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-CREATE USER IF NOT EXISTS 'rachid'@'%' IDENTIFIED BY 'rachid';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'rachid'@'%';
-ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('rachid');
+GRANT ALL ON wordpress.* TO 'rachid'@'%' IDENTIFIED BY 'rachid';
+ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'rachid';
 FLUSH PRIVILEGES;
-EOF
+EXIT
+limiter
 
-# Stop the temporary MariaDB process cleanly
 mysqladmin -u root -prachid shutdown
 
-# Start MariaDB as the main foreground process
-exec mysqld_safe --datadir=/var/lib/mysql
+service mariadb stop
+
+exec mysqld_safe
