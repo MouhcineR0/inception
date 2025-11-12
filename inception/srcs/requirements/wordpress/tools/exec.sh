@@ -21,6 +21,9 @@ wp core download --allow-root
 
 
 wp config create --dbname=wordpress --dbuser=rachid --dbpass=rachid --dbhost=databases --allow-root
-wp core install --url=rmouhcin.42.fr --title="Inception" --admin_user=admin --admin_password=admin --admin_email=you@example.com --allow-root
+
+# Allow overriding the site URL to avoid redirects off port 8080 in dev
+: "${WORDPRESS_URL:=http://localhost:8080}"
+wp core install --url="$WORDPRESS_URL" --title="Inception" --admin_user=admin --admin_password=admin --admin_email=you@example.com --allow-root
 
 php-fpm8.2 -F
