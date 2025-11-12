@@ -5,7 +5,7 @@ WORKDIR /app/nginx
 RUN apt update
 RUN apt install -y nginx openssl
 
-RUN mkdir -p /etc/nginx/ssl && openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=MO/ST=KH/L=KH/O=1337/OU=1337/CN=rboutaik.42.fr/UID=rboutaik"
+RUN mkdir -p /etc/nginx/ssl && openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=MO/ST=KH/L=KH/O=1337/OU=1337/CN=rmouhcin.42.fr/UID=rmouhcin"
 
 COPY tools/default.conf /etc/nginx/nginx.conf
 

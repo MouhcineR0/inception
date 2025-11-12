@@ -1,12 +1,8 @@
 #!/bin/bash
 
-echo "rachid mouhcine"
-
 service mariadb start
 
-# while ! mariadb ping --silent; do
 sleep 5
-# done
 
 mariadb << limiter
 CREATE DATABASE IF NOT EXISTS wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -21,4 +17,4 @@ mysqladmin -u root -prachid shutdown
 
 service mariadb stop
 
-exec mysqld_safe --bind-address=0.0.0.0
+exec mysqld_safe
