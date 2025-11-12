@@ -7,14 +7,11 @@ services:
     networks:
       - inception
     build : srcs/requirements/mariadb
-    # container_name: databasecontainer
     restart : always # default port mariadb is 3306
+    expose:
+      - "3306"
   wordpress:
     build: srcs/requirements/wordpress
-    # container_name: wordpresscontainer
-    # depends_on:
-    #   databases:
-    #     condition: service_healthy
     restart : always
     volumes:
       - wordpressdata:/var/www/html
@@ -27,8 +24,8 @@ services:
       WORDPRESS_DB_USER: rachid
       WORDPRESS_DB_PASSWORD: rachid
       WORDPRESS_DB_NAME: wordpress
-    # expose:
-    #   - "9000"
+    expose:
+      - "9000"
   nginx:
     depends_on:
       - wordpress

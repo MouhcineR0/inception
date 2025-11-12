@@ -21,4 +21,4 @@ mysqladmin -u root -prachid shutdown
 
 service mariadb stop
 
-exec mysqld_safe
+exec mysqld_safe --bind-address=0.0.0.0
