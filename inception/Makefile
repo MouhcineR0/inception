@@ -11,4 +11,4 @@ down:
 # 	@docker rm $$(docker ps -qa)
 
 cache:
-	@docker builder prune --all
+	@docker builder prune -f --all

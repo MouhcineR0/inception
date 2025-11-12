@@ -36,7 +36,7 @@ services:
     # container_name: nginxcontainer
     restart : always
     ports:
-      - "8080:80"
+      - "443:443"
     volumes:
       - wordpressdata:/var/www/html
     networks:
