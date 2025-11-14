@@ -14,9 +14,11 @@ wp core download --allow-root
 
 wp config create --dbname=wordpress --dbuser=rachid --dbpass=rachid --dbhost=databases --allow-root
 
-wp core install --url="https://rmouhcin.42.fr" --title="inception" --admin_user=admin --admin_password=admin --admin_email=you@example.com --allow-root
+wp core install --url="https://rmouhcin.42.fr" --title="Inception" --admin_user=admin --admin_password=admin --admin_email=you@example.com --allow-root
 
-wp user create rachida rachidnormal@example.com --user_pass=rachid --role=author --allow-root
+# wp user create rachida regular_user@example.com --user_pass=rachida --role=author --allow-root
 
+# wp option update home "https://localhost" --allow-root
+# wp option update siteurl "https://localhost" --allow-root
 
 php-fpm8.2 -F
