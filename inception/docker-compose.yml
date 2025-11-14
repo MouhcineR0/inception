@@ -9,7 +9,16 @@ services:
     build : srcs/requirements/mariadb
     # container_name: databasecontainer
     restart : always # default port mariadb is 3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
   wordpress:
+    depends_on:
+      databases:
+        condition: service_healthy
     build: srcs/requirements/wordpress
     # container_name: wordpresscontainer
     # depends_on:
@@ -20,8 +29,6 @@ services:
       - wordpressdata:/var/www/html
     networks:
       - inception
-    depends_on:
-      - databases
     environment:
       WORDPRESS_DB_HOST: databases
       WORDPRESS_DB_USER: rachid
