@@ -1,8 +1,8 @@
 #!/bin/bash
 
-until mysqladmin ping -h"databases" --silent; do
-  sleep 1
-done
+# until mysqladmin ping -h"databases" --silent; do
+#   sleep 1
+# done
 
 sleep 10
 
@@ -14,11 +14,9 @@ wp core download --allow-root
 
 wp config create --dbname=wordpress --dbuser=rachid --dbpass=rachid --dbhost=databases --allow-root
 
-wp core install --url="https://rmouhcin.42.fr" --title="Inception" --admin_user=admin --admin_password=admin --admin_email=you@example.com --allow-root
+wp core install --url="https://138.197.206.36" --title="Inception" --admin_user=rmouhcin --admin_password=rmouhcin00 --admin_email=rmouhcin@1337.com --allow-root
 
-wp user create rachida regular_user@example.com --user_pass=rachida --role=author --allow-root
+wp user create rachidd rachidd@1337.com --user_pass=rachidd --role=author --allow-root
 
-# wp option update home "https://localhost" --allow-root
-# wp option update siteurl "https://localhost" --allow-root
 
 php-fpm8.2 -F
