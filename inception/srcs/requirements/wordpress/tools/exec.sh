@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# until mysqladmin ping -h"databases" --silent; do
-#   sleep 1
-# done
+until mysqladmin ping -h"databases" --silent; do
+  sleep 1
+done
 
 sleep 10
 
