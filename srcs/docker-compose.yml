@@ -1,0 +1,64 @@
+networks:
+  inception:
+    driver: bridge
+
+services:
+  databases:
+    volumes:
+      - mariadbdata:/var/lib/mysql
+    networks:
+      - inception
+    build : requirements/mariadb
+    restart : always
+    image: i_mariadb:v1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    env_file:
+      - ./.env
+  wordpress:
+    depends_on:
+      databases:
+        condition: service_healthy
+    build: requirements/wordpress
+    restart : always
+    image: i_wordpress:v1
+    volumes:
+      - wordpressdata:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - ./.env
+  nginx:
+    depends_on:
+      - wordpress
+    build: requirements/nginx
+    image: i_nginx:v1
+    restart : always
+    ports:
+      - "443:443"
+    volumes:
+      - wordpressdata:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - ./.env
+
+volumes:
+  wordpressdata:
+    driver: local
+    driver_opts:
+      type: none
+      o : bind
+      device: /home/rmouhcin/data/wordpress
+  mariadbdata:
+    driver: local
+    driver_opts:
+      type: none
+      o : bind
+      device: /home/rmouhcin/data/mariadb
+  
+  
