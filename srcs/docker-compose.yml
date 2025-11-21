@@ -3,7 +3,7 @@ networks:
     driver: bridge
 
 services:
-  databases:
+  mariadb:
     volumes:
       - mariadbdata:/var/lib/mysql
     networks:
@@ -21,7 +21,7 @@ services:
       - ./.env
   wordpress:
     depends_on:
-      databases:
+      mariadb:
         condition: service_healthy
     build: requirements/wordpress
     restart : always
