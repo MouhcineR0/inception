@@ -10,7 +10,7 @@ services:
       - inception
     build : requirements/mariadb
     restart : always
-    image: i_mariadb:v1
+    image: mariadb:v1
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 2s
@@ -25,7 +25,7 @@ services:
         condition: service_healthy
     build: requirements/wordpress
     restart : always
-    image: i_wordpress:v1
+    image: wordpress:v1
     volumes:
       - wordpressdata:/var/www/html
     networks:
@@ -36,7 +36,7 @@ services:
     depends_on:
       - wordpress
     build: requirements/nginx
-    image: i_nginx:v1
+    image: nginx:v1
     restart : always
     ports:
       - "443:443"
